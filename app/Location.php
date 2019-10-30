@@ -15,4 +15,9 @@ class Location extends Model
         'computer_id',
         'department', 'leader', 'observations'
     ];
+
+    public function computer()
+    {
+        $this->belongsTo(Computer::class);
+    }
 }

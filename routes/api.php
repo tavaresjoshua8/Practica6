@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use App\Computer;
-use App\Report;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,24 +13,12 @@ use App\Report;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::get('/computers', function(){
-    $computers = Computer::orderBy('name')->get()
-        ->map(function($computer){
-            $computer->hardware;
-            return $computer;
-        });
+Route::get('/computers/select', function(){
+    $computers = Computer::select('name AS text', 'id AS value')->get();
 
     return $computers;
 });
 
-Route::get('/reports', function(){
-    $reports = Report::get();
+Route::apiResource('computers', 'Api\ComputerController');
+Route::apiResource('reports', 'Api\ReportController');
 
-    return $reports;
-});
-Route::get('/reports/{id}', function($id){
-    $reports = Computer::find($id)->reports;
-
-    return $reports;
-});

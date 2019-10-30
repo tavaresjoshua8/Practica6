@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Report;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Computer;
+use App\Report;
 
 class ReportController extends Controller
 {
@@ -14,17 +16,12 @@ class ReportController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $reports = Report::get()->map(function($report){
+            $report->computer;
+            return $report;
+        });
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $reports;
     }
 
     /**
@@ -41,33 +38,24 @@ class ReportController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Report  $report
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Report $report)
+    public function show($id)
     {
-        //
-    }
+        $reports = Computer::find($id)->reports;
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Report  $report
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Report $report)
-    {
-        //
+        return $reports;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Report  $report
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Report $report)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +63,10 @@ class ReportController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Report  $report
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Report $report)
+    public function destroy($id)
     {
         //
     }
