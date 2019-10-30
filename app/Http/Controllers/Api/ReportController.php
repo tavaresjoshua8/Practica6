@@ -32,7 +32,15 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $report = new Report($request->report);
+        if( $report->save() ){
+            $report->computer;
+            return $report;
+        }
+
+        $report->computer;
+
+        return response()->json(['message' => 'Error Inesperado en el Servidor.'], 400);
     }
 
     /**
@@ -57,7 +65,15 @@ class ReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $report = Report::find($id);
+        $report->fill($request->report);
+
+        if( $report->save() ){
+            $report->computer;
+            return $report;
+        }
+
+        return response()->json(['message' => 'Error Inesperado en el Servidor.'], 400);
     }
 
     /**
@@ -68,6 +84,13 @@ class ReportController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $report = Report::find($id);
+
+        if( $report->delete() ){
+            $report->computer;
+            return $report;
+        }
+
+        return response()->json(['message' => 'Error Inesperado en el Servidor.'], 400);
     }
 }

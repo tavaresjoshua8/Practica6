@@ -20,7 +20,7 @@ class CreateLocationsTable extends Migration
 
             $table->string('department');
             $table->string('leader'); // Responsable [Oficcer]
-            $table->text('observations');
+            $table->text('observations')->nullable();
 
             $table->timestamps();
 
