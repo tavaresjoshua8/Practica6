@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Computer;
+use App\Report;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,23 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/computers', function(){
+    $computers = Computer::orderBy('name')->get()
+        ->map(function($computer){
+            $computer->hardware;
+            return $computer;
+        });
+
+    return $computers;
+});
+
+Route::get('/reports', function(){
+    $reports = Report::get();
+
+    return $reports;
+});
+Route::get('/reports/{id}', function($id){
+    $reports = Computer::find($id)->reports;
+
+    return $reports;
 });
