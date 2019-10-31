@@ -13,7 +13,7 @@ use App\Computer;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/computers/select', function(){
+Route::get('/select/computers', function(){
     $computers = Computer::select('name AS text', 'id AS value')->get();
 
     return $computers;
